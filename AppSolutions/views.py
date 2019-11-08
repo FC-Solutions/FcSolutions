@@ -3,7 +3,8 @@ from django.urls import reverse
 from django.views.generic import TemplateView, FormView
 from .models import *
 from .forms import PublicacaoForm
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
+
 
 class HomePageView(TemplateView):
     template_name = 'AppSolutions/home.html'
@@ -51,3 +52,11 @@ def Seguir(request, id_colaborador):
         return HttpResponse('Objeto Não encontrado')
     
     return render(request, 'AppSolutions/sucesso_seguir.html', {'cara_quero_seguir': cara_quero_seguir})
+
+def Detalhe(request, publica_id):
+    try:
+        publicacao = Publicacao.objects.get(pk=publica_id)
+        comentari = Comentario.objects.get(pk=publica_id)
+    except Publicacao.DoesNotExist:
+        raise Http404('Nada Encontrado')
+    return render(request, 'AppSolutions/detalhe.html', {'publicacao': publicacao, 'comentari':comentari})
