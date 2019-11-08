@@ -6,6 +6,11 @@
     <nav>
         
       <ul class="nav nav-pills float-right">
+          {% if user.username !=  nome %}
+          <li>
+              <a class="nav-link" href="/perfil/{{ user.username }}">Meu perfil</a>
+          </li>
+        {% endif %}
           <li class="nav-item">
               <a class="nav-link" href="/inicio">Início</a>
           </li>
@@ -21,7 +26,7 @@
       <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="button" class="btn btn-dark" type="submit" value="Publicar"> Publicar </button>
+        <input class="btn btn-dark" type="submit" value="Publicar">
       </form>
     </div>
     {% else %}

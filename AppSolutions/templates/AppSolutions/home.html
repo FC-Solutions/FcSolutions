@@ -6,6 +6,11 @@
     <nav>
         
       <ul class="nav nav-pills float-right">
+          {% if user.username !=  nome %}
+          <li>
+              <a class="nav-link" href="/perfil/{{ user.username }}">Meu perfil</a>
+          </li>
+      {% endif %}
           <li class="nav-item">
               <a class="nav-link" href="/publicar">Publicar</a>
           </li>
