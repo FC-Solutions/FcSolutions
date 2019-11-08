@@ -1,0 +1,18 @@
+
+<h1> Data - {{ publicacao.publicacao.data }} </h1>
+    <h3> {{ publicacao.autor }} </h3>
+
+    <ul>
+        {% for pub in publicacao.pub_set.all %}
+            <li>{{ pub.pub_texto }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Comentarios</h3>
+
+    <ul>
+        <h2> {{ comentari.autor }} </h2>
+        {% for com in comentari.com_set.all %}
+            <li>{{ com.com_texto }}</li>
+        {% endfor %}
+    </ul>
