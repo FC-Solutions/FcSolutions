@@ -1,0 +1,32 @@
+{% extends 'AppSolutions/base.html' %}
+{% block conteudo %}
+{% if user.is_authenticated %}
+<div class="header clearfix ">
+
+    <nav>
+        
+      <ul class="nav nav-pills float-right">
+          <li class="nav-item">
+              <a class="nav-link" href="/inicio">Início</a>
+          </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/autenticacao/logout">Sair</a>
+        </li>
+      </ul>
+    </nav>
+    <h3 class="text-muted"> {{ user.username }}</h3>
+  </div>
+  
+    <div class="container">
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="button" class="btn btn-dark" type="submit" value="Publicar"> Publicar </button>
+      </form>
+    </div>
+    {% else %}
+      <p>Realize Login!</p>
+    <a class="nav-link" href="/autenticacao/login">Entrar</a>
+    
+{% endif %}
+{% endblock %}

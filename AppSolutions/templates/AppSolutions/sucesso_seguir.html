@@ -1,0 +1,19 @@
+{% extends 'AppSolutions/base.html' %}
+{% block conteudo %}
+
+    {% if user.is_authenticated %}
+    <nav>
+        <h1>Sucesso!</h1>
+        <ul class="nav nav-pills float-right">
+            <li>Você agora está seguindo {{ cara_quero_seguir.usuario }}</li>
+        </ul>
+      <ul class="nav nav-pills float-left">
+        <li class="nav-item">
+          <a class="nav-link" href="/perfil/{{ cara_quero_seguir.usuario }}">Voltar</a>
+        </li>
+      </ul>
+    </nav>
+
+  
+{% endif %}
+{% endblock %}
