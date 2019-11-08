@@ -9,7 +9,11 @@ class HomePageView(TemplateView):
     template_name = 'AppSolutions/home.html'
 
 def inicio(request):
-    return render(request, 'AppSolutions/inicio.html')
+    colaborador = Colaborador.objects.get(usuario=request.user)
+    seguidores = colaborador.seguidores.all()
+    publicacoes = Publicacao.objects.filter(autor__in=seguidores)
+    
+    return render(request, 'AppSolutions/inicio.html',{'publicacoes': publicacoes})
 
 
 class PublicacaoView(FormView):
