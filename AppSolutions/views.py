@@ -32,6 +32,17 @@ class PublicacaoView(FormView):
     def get_success_url(self):
         return reverse('inicio')
 
+class ComentarioView(FormView):
+    template_name = 'AppSolutions/comentar.html'
+    form_class = ComentarioForm
+
+    def form_valid(self, form, id_publicacao):
+        dados = form.clean()
+        colaborador = Colaborador.objects.get(usuario=self.request.user)
+        publicacao1 = Publicacao.objects.get(id=id_publicacao)
+        comentario = Comentario(texto=dados['texto'], autor=colaborador, publicacao=publicacao1)
+        comentario.save()
+
 def Perfil(request, nome):
     try:
         colaborador_log = Colaborador.objects.get(usuario=request.user)

@@ -1,7 +1,7 @@
 from django.urls import path
 
 from AppSolutions import views
-from .views import HomePageView, inicio, PublicacaoView, Perfil, Seguir
+from .views import HomePageView, inicio, PublicacaoView, Perfil, Seguir, ComentarioView
 
 urlpatterns = [
     path('', HomePageView.as_view(), name='home'),
@@ -10,4 +10,5 @@ urlpatterns = [
     path('perfil/<str:nome>/', Perfil, name='perfil'),
     path('seguir/<int:id_colaborador>', Seguir, name='seguir'),
     path('<int:publica_id>', views.Detalhe, name='detalhe'),
+    path('comentar/<int:id_publicacao>', ComentarioView.as_view(), name='comentar'),
 ] 
