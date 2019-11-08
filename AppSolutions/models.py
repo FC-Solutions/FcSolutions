@@ -10,7 +10,7 @@ class Colaborador(models.Model):
         verbose_name_plural = 'Colaboradores'
     nome = models.CharField(max_length=128, default='')
     usuario = models.ForeignKey(User, verbose_name='Autor', on_delete=models.DO_NOTHING)
-    seguidores = models.ManyToManyField("Colaborador", verbose_name='Seguidores', blank=True, null=True)
+    seguidores = models.ManyToManyField("Colaborador", verbose_name='Seguidores', blank=True)
 
     def __str__(self):
         return self.usuario.username
@@ -39,3 +39,4 @@ class Comentario(models.Model):
 
     def __str__(self):
         return self.texto
+
