@@ -1,8 +1,17 @@
 {% extends 'AppSolutions/base.html' %}
 {% block topo %}
     {% if user.is_authenticated %}
-    <nav>
-        <ul class="nav nav-pills float-right">
+      <h3 class="text-muted">{{ colaborador.nome }}</h3>
+        <ul class="nav nav-pills ">
+        {% if user.username !=  nome %}
+                {% if colaborador in colaborador_log.seguidores.all %}
+                    <span class="text-white">Seguindo!</span>
+                  {% else %}
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'seguir' colaborador.id %}">Seguir</a>
+                    </li>
+                {% endif %}
+            {% endif %}
             <li class="nav-item">
               <a class="nav-link" href="/publicar">Publicar</a>
             </li>
@@ -11,25 +20,13 @@
                     <a class="nav-link" href="/perfil/{{ user.username }}">Meu perfil</a>
                 </li>
             {% endif %}
-          </ul>
-      <ul class="nav nav-pills float-right">
         <li class="nav-item">
           <a class="nav-link" href="/autenticacao/logout">Sair</a>
         </li>
       </ul>
-    </nav>
-    <h3 class="text-muted">{{ colaborador.nome }}</h3>
-    <ul class="nav nav-pills float-left">
-            {% if user.username !=  nome %}
-                {% if colaborador in colaborador_log.seguidores.all %}
-                    <p>Você já está seguindo!</p>
-                  {% else %}
-                    <li class="nav-item">
-                      <a class="nav-link" href="{% url 'seguir' colaborador.id %}">seguir</a>
-                    </li>
-                {% endif %}
-            {% endif %}
-    </ul>
+    
+    
+    
     {% endif %}
 {% endblock %}
 {% block conteudo %}
