@@ -21,6 +21,7 @@
       <a href="#">@{{ publicacao.autor }}</a>
       <a class="float-right">{{ publicacao.data }}</a>
       <p>{{ publicacao.texto }}</p>
+      <a class="link" href="{% url 'comentar' publicacao.id %}">Comentar</a>
     </li>
   {% endfor %}
   {% else %} 

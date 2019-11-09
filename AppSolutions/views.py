@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import TemplateView, FormView
 from .models import *
-from .forms import PublicacaoForm
+from .forms import PublicacaoForm, ComentarioForm
 from django.http import HttpResponse, Http404
 
 
@@ -13,7 +13,6 @@ def inicio(request):
     colaborador = Colaborador.objects.get(usuario=request.user)
     seguidores = colaborador.seguidores.all()
     publicacoes = Publicacao.objects.filter(autor__in=seguidores)
-    
     return render(request, 'AppSolutions/inicio.html',{'publicacoes': publicacoes})
 
 
@@ -36,12 +35,18 @@ class ComentarioView(FormView):
     template_name = 'AppSolutions/comentar.html'
     form_class = ComentarioForm
 
-    def form_valid(self, form, id_publicacao):
+    def form_valid(self, form):
+        id_publicacao = self.kwargs['id_publicacao']
         dados = form.clean()
         colaborador = Colaborador.objects.get(usuario=self.request.user)
         publicacao1 = Publicacao.objects.get(id=id_publicacao)
         comentario = Comentario(texto=dados['texto'], autor=colaborador, publicacao=publicacao1)
         comentario.save()
+
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('inicio')
 
 def Perfil(request, nome):
     try:
