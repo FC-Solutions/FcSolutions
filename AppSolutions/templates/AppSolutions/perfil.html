@@ -28,9 +28,6 @@
           <a class="nav-link" href="/autenticacao/logout">Sair</a>
         </li>
       </ul>
-    
-    
-    
     {% endif %}
 {% endblock %}
 {% block conteudo %}
@@ -38,9 +35,9 @@
         <ul class="timeline">
             {% for publicacao in publicacoes %}
                 <li>
-                    <a href="#">@{{ publicacao.autor }}</a>
-                    <a class="float-right">{{ publicacao.data }}</a>
-                    <p>{{ publicacao.texto }}</p>
+                    <p>{{ publicacao.autor }}</p>
+                    <a class="float-right" >{{ publicacao.data }}</a>
+                    <p><a href="{% url 'Detalhe' publicacao.id %}">{{ publicacao.texto }}</a></p>
                 </li>
             {% endfor %}
         </ul>
