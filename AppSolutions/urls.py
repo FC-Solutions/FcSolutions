@@ -9,6 +9,6 @@ urlpatterns = [
     path('publicar/', PublicacaoView.as_view(), name='publicar'),
     path('perfil/<str:nome>/', Perfil, name='perfil'),
     path('seguir/<int:id_colaborador>', Seguir, name='seguir'),
-    path('<int:publica_id>', views.Detalhe, name='detalhe'),
+    path('detalhe/<int:public_id>', views.Detalhe, name='Detalhe'),
     path('comentar/<int:id_publicacao>', ComentarioView.as_view(), name='comentar'),
-] 
+]

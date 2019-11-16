@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.views.generic import TemplateView, FormView
 from .models import *
 from .forms import PublicacaoForm, ComentarioForm
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse
 
 
 class HomePageView(TemplateView):
@@ -13,8 +13,8 @@ def inicio(request):
     colaborador = Colaborador.objects.get(usuario=request.user)
     seguidores = colaborador.seguidores.all()
     publicacoes = Publicacao.objects.filter(autor__in=seguidores)
+    
     return render(request, 'AppSolutions/inicio.html',{'publicacoes': publicacoes})
-
 
 class PublicacaoView(FormView):
     template_name = 'AppSolutions/publicar.html'
@@ -35,18 +35,12 @@ class ComentarioView(FormView):
     template_name = 'AppSolutions/comentar.html'
     form_class = ComentarioForm
 
-    def form_valid(self, form):
-        id_publicacao = self.kwargs['id_publicacao']
+    def form_valid(self, form, id_publicacao):
         dados = form.clean()
         colaborador = Colaborador.objects.get(usuario=self.request.user)
         publicacao1 = Publicacao.objects.get(id=id_publicacao)
         comentario = Comentario(texto=dados['texto'], autor=colaborador, publicacao=publicacao1)
         comentario.save()
-
-        return super().form_valid(form)
-
-    def get_success_url(self):
-        return reverse('inicio')
 
 def Perfil(request, nome):
     try:
@@ -55,7 +49,7 @@ def Perfil(request, nome):
         publicacoes = Publicacao.objects.filter(autor=colaborador).order_by('-data')
     except Exception as identifier:
         return HttpResponse('Objeto Não encontrado')
-            
+
     return render(request, 'AppSolutions/perfil.html', {'publicacoes': publicacoes, 'colaborador': colaborador, 'colaborador_log':colaborador_log, 'nome':nome})
 
 def Seguir(request, id_colaborador):
@@ -69,10 +63,10 @@ def Seguir(request, id_colaborador):
     
     return render(request, 'AppSolutions/sucesso_seguir.html', {'cara_quero_seguir': cara_quero_seguir})
 
-def Detalhe(request, publica_id):
+def Detalhe(request, public_id):
     try:
-        publicacao = Publicacao.objects.get(pk=publica_id)
-        comentari = Comentario.objects.get(pk=publica_id)
-    except Publicacao.DoesNotExist:
-        raise Http404('Nada Encontrado')
-    return render(request, 'AppSolutions/detalhe.html', {'publicacao': publicacao, 'comentari':comentari})
+        publicacao = Publicacao.objects.get(pk=public_id)
+        comentari = Comentario.objects.get(publicacao=public_id)
+    except Exception as identifier:
+        return HttpResponse('Objeto Não encontrado')
+    return render(request, 'AppSolutions/detalhe.html', {'publicacao':publicacao, 'comentari':comentari})
