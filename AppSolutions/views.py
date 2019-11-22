@@ -35,6 +35,12 @@ class ComentarioView(FormView):
     template_name = 'AppSolutions/comentar.html'
     form_class = ComentarioForm
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        pub = Publicacao.objects.get(pk=self.kwargs['id_publicacao'])        
+        context['publicacao'] = pub        
+        return context
+    
     def form_valid(self, form):
         id_publicacao = self.kwargs['id_publicacao']
         dados = form.clean()

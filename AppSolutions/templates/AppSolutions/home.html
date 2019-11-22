@@ -2,25 +2,9 @@
 {% block conteudo %}
 {% if user.is_authenticated %}
 <div class="header clearfix ">
-
-    <nav>
-      <ul class="nav nav-pills float-right">
-          {% if user.username !=  nome %}
-          <li>
-              <a class="nav-link" href="/perfil/{{ user.username }}">Meu perfil</a>
-          </li>
-      {% endif %}
-          <li class="nav-item">
-              <a class="nav-link" href="/publicar">Publicar</a>
-          </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/autenticacao/logout">Sair</a>
-        </li>
-      </ul>
-    </nav>
-    <h3 class="text-muted"> {{ user.username }}</h3>
-  </div>
-  <p>  APARECER COISAS DO INICIO AQUI!!</p>
+  <h3 class="text-muted"> {{ user.username }}</h3>
+</div>
+  <h3>Bem-vindo(a) a rede social da FC Solutions, a sua rede social favorita do trabalho, onde você pode interagir muito mais com seus colegas no trabalho.</h3>
   {% else %} 
   <h3 class="text-muted">Bem-vindo a rede social da FC Solutions!</h3>
     <div class="container mt-5 mb-5">
