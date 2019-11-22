@@ -6,7 +6,7 @@
         {% if user.username !=  nome %}
                 {% if colaborador in colaborador_log.seguidores.all %}
                     <span class="text-white">Seguindo!</span>
-                  {% else %}
+                {% else %}
                     <li class="nav-item">
                       <a class="nav-link" href="{% url 'seguir' colaborador.id %}">Seguir</a>
                     </li>
@@ -34,11 +34,11 @@
     <div class="container">
         <ul class="timeline">
             {% for publicacao in publicacoes %}
-                <li>
+                <div class="border" id="publicacao">
                     <p>{{ publicacao.autor }}</p>
                     <a class="float-right" >{{ publicacao.data }}</a>
                     <p><a href="{% url 'Detalhe' publicacao.id %}">{{ publicacao.texto }}</a></p>
-                </li>
+                </div>
             {% endfor %}
         </ul>
     </div>

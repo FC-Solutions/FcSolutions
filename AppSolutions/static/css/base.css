@@ -1,0 +1,29 @@
+/* itens da base */
+footer {
+    position:fixed;
+    left:0px;
+    bottom:0px;
+    height:12%;
+    width:100%;
+    
+}
+
+#login{
+    margin: 80px auto 0;
+    max-width: 450px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#formLogin{
+    width:160px;
+    height:160px;
+}
+
+/* inicio */
+
+#publicacao{
+    padding: 10px;
+}

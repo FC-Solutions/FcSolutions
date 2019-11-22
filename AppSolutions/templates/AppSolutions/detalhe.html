@@ -1,15 +1,19 @@
 {% extends 'AppSolutions/base.html' %}
 {% block conteudo %}
-<h1> Publicacao - {{ publicacao.texto }} </h1>
 
-    <p> Data - {{ publicacao.data }}</p>
+<div>
+    <h4>Publicação</h4>
+    <div class="border" id="publicacao">
+        <h4>{{ publicacao.texto }} </h4>
+        <p>{{ publicacao.data }}</p>
+    </div>
 
-    <h2>Comentarios</h2>
-
+    <h4>Comentarios</h4>
+    <div class="border" id="publicacao">
     <ul>
-        <h3> Usuario - {{ comentari.autor }} </h3>
-
+        <h5>{{ comentari.autor }} </h5>
         <p> {{ comentari.texto }}</p>
-
     </ul>
+    </div>
+</div>
 {% endblock %}

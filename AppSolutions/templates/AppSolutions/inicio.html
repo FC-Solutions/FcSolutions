@@ -2,27 +2,15 @@
 {% block conteudo %}
 {% if user.is_authenticated %}
 <div class="header clearfix ">
-
-    <nav>
-        
-      <ul class="nav nav-pills float-right">
-          <li class="nav-item">
-              <a class="nav-link" href="/publicar">Publicar</a>
-          </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/autenticacao/logout">Sair</a>
-        </li>
-      </ul>
-    </nav>
     <h3 class="text-muted"> {{ user.username }}</h3>
   </div>
   {% for publicacao in publicacoes %}
-    <li>
-      <a href="#">@{{ publicacao.autor }}</a>
+    <div class="border" id="publicacao">
+      <a href="{% url 'perfil' publicacao.autor %}">@{{ publicacao.autor }}</a>
       <a class="float-right">{{ publicacao.data }}</a>
       <p>{{ publicacao.texto }}</p>
       <a class="link" href="{% url 'comentar' publicacao.id %}">Comentar</a>
-    </li>
+    </div>
   {% endfor %}
   {% else %} 
   <h3 class="text-muted">Bem-vindo a rede social da FC Solutions!</h3>

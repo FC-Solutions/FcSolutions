@@ -1,4 +1,5 @@
 <!doctype html>
+{% load static %}
 <html >
   <head>
     <!-- Required meta tags -->
@@ -8,14 +9,32 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
     <title>FC Solutions</title>
   </head>
 <body>
 <!-- Barra Topo -->
 
 <nav class="navbar navbar-dark bg-dark">
-    <a class="navbar-brand" href="/inicio">FC Solutions</a>
+    <a class="navbar-brand" href="/">FC Solutions</a>
     {% block topo %}
+      <ul class="nav nav-pills ">
+        <li class="nav-item">
+                <a class="nav-link" href="/inicio">Início</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/publicar">Publicar</a>
+            </li>
+            {% if user.username !=  nome %}
+                <li>
+                    <a class="nav-link" href="/perfil/{{ user.username }}">Meu perfil</a>
+                </li>
+            {% endif %}
+        <li class="nav-item">
+            <a class="nav-link" href="/autenticacao/logout">Sair</a>
+        </li>
+      </ul>
     {% endblock %}
 </nav>
     
@@ -32,12 +51,10 @@
     </div>
     
 <!-- Rodapé -->
-
-   
-
 <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
-    <div class="container text-center">
-        <div class="copyright">
-          &copy; Copyright <strong>FC Solutions</strong>. All Rights Reserved - 2019
-        </div>      
-  </footer>
+  <div class="container text-center">
+      <div class="copyright">
+        &copy; Copyright <strong>FC Solutions</strong>. All Rights Reserved - 2019
+      </div>
+  </div>     
+</footer>

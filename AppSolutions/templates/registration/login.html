@@ -12,9 +12,9 @@
 </div>
 {% endblock %}
 {% block conteudo %}
-  <div class="container">
-    <h1> Faça seu Login</h1>
-    <form action="." method="post">
+  <div class="container" id="login">
+    <h1> Faça seu login</h1>
+    <form id="formLogin" action="." method="post">
       {% csrf_token %}
       {{ form.as_p }}
       <input class="btn btn-dark" type="submit" value="Login">
