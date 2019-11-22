@@ -4,7 +4,7 @@ from django.views.generic import TemplateView, FormView
 from .models import *
 from .forms import PublicacaoForm, ComentarioForm
 from django.http import HttpResponse
-
+from django.core.paginator import Paginator
 
 class HomePageView(TemplateView):
     template_name = 'AppSolutions/home.html'
@@ -12,8 +12,10 @@ class HomePageView(TemplateView):
 def inicio(request):
     colaborador = Colaborador.objects.get(usuario=request.user)
     seguidores = colaborador.seguidores.all()
-    publicacoes = Publicacao.objects.filter(autor__in=seguidores)
-    
+    publicacoes = Publicacao.objects.filter(autor__in=seguidores)[:30]
+    paginator = Paginator(publicacoes, 3)
+    page = request.GET.get("page")
+    publicacoes = paginator.get_page(page)
     return render(request, 'AppSolutions/inicio.html',{'publicacoes': publicacoes})
 
 class PublicacaoView(FormView):
@@ -80,6 +82,7 @@ def Detalhe(request, public_id):
     try:
         publicacao = Publicacao.objects.get(pk=public_id)
         comentari = Comentario.objects.get(publicacao=public_id)
-    except Exception as identifier:
-        return HttpResponse('Objeto Não encontrado')
+       
+    except Comentario.DoesNotExist:
+        return render(request, 'AppSolutions/detalhe.html', {'publicacao':publicacao})
     return render(request, 'AppSolutions/detalhe.html', {'publicacao':publicacao, 'comentari':comentari})
